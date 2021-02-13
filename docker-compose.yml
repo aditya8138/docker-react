@@ -1,0 +1,22 @@
+version: '3'
+services:
+  web:
+    build:
+      context: .  #current working directory for docker file
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - .:/app              #current folder outside container:current folder inside the container
+    stdin_open: true
+
+  #another service to run test dynamically
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    command: ["npm", "run", "test"]
