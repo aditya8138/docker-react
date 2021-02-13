@@ -1,0 +1,12 @@
+language: generic
+sudo: required
+services:
+  - docker
+
+#things to do before running test
+before_install:
+  - docker build -t aditya8138/docker-react -f Dockerfile.dev .  # build image and tag the image with any dockerusername/repo (not necessary)
+
+#run test suite
+script:
+  - docker run -e CI=true aditya8138/docker-react npm run test -- --coverage # -- --coverage to exit running of tests
